@@ -6,104 +6,76 @@ import {
   FaClipboardList,
   FaTruck,
   FaBox,
-  FaUsers,
   FaSignInAlt,
   FaUserPlus,
   FaBars,
-  FaShoppingCart,
+  FaTimes,
 } from "react-icons/fa";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className="flex">
-      <button
-        onClick={toggleSidebar}
-        className="p-4 bg-blue-500 text-white md:hidden focus:outline-none"
-      >
-        <FaBars />
-      </button>
-      <div
-        className={`fixed top-0 left-0 w-64 h-full bg-gray-800 text-white p-6 space-y-6 transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:relative md:h-auto md:w-64 md:flex md:flex-col`}
-      >
-        <h2 className="text-2xl font-bold text-center mb-6">Shanti Hardware</h2>
-        <ul className="space-y-4">
-          <li>
-            <Link
-              to="/"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaHome />
-              <span>Dashboard</span>
-            </Link>
-          </li>
+    <>
+      {/* Mobile Top Bar */}
+      <div className="md:hidden flex items-center bg-gray-800 text-white p-4">
+        <button onClick={() => setIsOpen(true)}>
+          <FaBars size={22} />
+        </button>
+        <h2 className="ml-4 text-lg font-semibold">Shanti Hardware</h2>
+      </div>
 
-          <li>
-            <Link
-              to="/inventory"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaBox />
-              <span>Inventory</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/suppliers"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaTruck />
-              <span>Supplier</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/orders"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaClipboardList />
-              <span>Order</span>
-            </Link>
-          </li>
-        
-          <li>
-            <Link
-              to="/profile"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaUser />
-              <span>Profile</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/login"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            > 
-              <FaSignInAlt />
-              <span>Login</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/register"
-              className="flex items-center space-x-2 hover:text-blue-400"
-            >
-              <FaUserPlus />
-              <span>Register</span>
-            </Link>
-          </li>
+      {/* Overlay (Mobile Only) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-gray-800 text-white p-6 space-y-6 transform transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0 md:relative md:z-0`}
+      >
+        {/* Mobile Close Button */}
+        <div className="flex justify-between items-center md:hidden">
+          <h2 className="text-xl font-bold">Shanti Hardware</h2>
+          <button onClick={() => setIsOpen(false)}>
+            <FaTimes size={20} />
+          </button>
+        </div>
+
+        {/* Desktop Title */}
+        <h2 className="hidden md:block text-2xl font-bold text-center">
+          Shanti Hardware
+        </h2>
+
+        <ul className="space-y-4 mt-6">
+          <SidebarLink to="/" icon={<FaHome />} text="Dashboard" />
+          <SidebarLink to="/inventory" icon={<FaBox />} text="Inventory" />
+          <SidebarLink to="/suppliers" icon={<FaTruck />} text="Supplier" />
+          <SidebarLink to="/orders" icon={<FaClipboardList />} text="Order" />
+          <SidebarLink to="/profile" icon={<FaUser />} text="Profile" />
+          <SidebarLink to="/login" icon={<FaSignInAlt />} text="Login" />
+          <SidebarLink to="/register" icon={<FaUserPlus />} text="Register" />
         </ul>
       </div>
-    </div>
+    </>
   );
 };
+
+const SidebarLink = ({ to, icon, text }) => (
+  <li>
+    <Link
+      to={to}
+      className="flex items-center space-x-3 hover:text-blue-400 transition"
+    >
+      {icon}
+      <span>{text}</span>
+    </Link>
+  </li>
+);
 
 export default Sidebar;

@@ -31,9 +31,12 @@ function App() {
 
   return (
     <Router>
-      <div className="flex">
+      <div className="flex min-h-screen bg-gray-100">
+        {/* Sidebar */}
         <Sidebar isLoggedIn={isLoggedIn} username={username} />
-        <div className="flex-1">
+
+        {/* Main Content */}
+        <div className="flex-1 p-4 md:ml-64">
           <Routes>
             <Route
               path="/"
