@@ -31,12 +31,12 @@ function App() {
 
   return (
     <Router>
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex bg-gray-100">
         {/* Sidebar */}
         <Sidebar isLoggedIn={isLoggedIn} username={username} />
 
         {/* Main Content */}
-        <div className="flex-1 p-4 md:ml-64">
+        <div className="flex-1 p-4">
           <Routes>
             <Route
               path="/"
