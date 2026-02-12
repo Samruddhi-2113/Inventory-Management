@@ -15,7 +15,7 @@
     "hardware",
     "shop"
   ],
-  "author": "Ritesh",
+  "author": "Samruddhi",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
